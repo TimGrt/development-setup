@@ -1,0 +1,8 @@
+---
+
+dotfiles_destination: "~"
+dotfiles:
+  - .vimrc
+
+developer_name: "Tim Grützmacher"
+developer_email: "tim.gruetzmacher@computacenter.com"

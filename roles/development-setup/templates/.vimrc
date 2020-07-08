@@ -25,9 +25,13 @@ set tabstop=2           " 2 spaces for tabs
 set shiftwidth=2        " 2 spaces for indentation
 
 " bells
-set belloff=all         " turn off audio bell
+set noerrorbells        " turn off audio bell
 set visualbell          " but leave on a visual bell
 
 " search
 set hlsearch            " highlighted search results
 set showmatch           " show matching bracket
+
+" yaml editing
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+

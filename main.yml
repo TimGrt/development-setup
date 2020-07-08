@@ -4,5 +4,4 @@
   hosts: localhost
   connection: local
   roles:
-    - dotfiles
-    - ssh
+    - development-setup

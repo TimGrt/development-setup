@@ -1,0 +1,11 @@
+---
+
+dotfiles_destination: "~"
+
+dotfiles:
+  - .vimrc
+  - .gitignore
+  - .gitconfig.j2
+
+developer_name: "Tim Grützmacher"
+developer_email: "tim.gruetzmacher@computacenter.com"

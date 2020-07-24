@@ -8,12 +8,24 @@
   args:
     warn: false
 
-- name: Install useful applications and tools, if possible
+- name: Install useful applications and tools for RedHat-based systems
   yum:
     name:
       - vim
       - ansible-lint
       - yaml-lint
   become: yes
-  when: '"Sorry" not in sudo_permission.stderr'
+  when:
+    - '"Sorry" not in sudo_permission.stderr'
+    - ansible_os_family == "RedHat"
 
+- name: Install useful applications and tools for Debian-based systems
+  apt:
+    name:
+      - vim
+      - ansible-lint
+      - yamllint
+  become: yes
+  when:
+    - '"Sorry" not in sudo_permission.stderr'
+    - ansible_os_family == "Debian"

@@ -5,6 +5,7 @@
     path: ~/.ssh/id_rsa
     type: rsa
     size: 4096
+    force: no
     comment: "{{ ansible_env.USER }}@{{ ansible_hostname }}"
 
 - name: Output SSH public key, when copying, be careful not to copy the quotation marks

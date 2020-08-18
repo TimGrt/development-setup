@@ -7,3 +7,13 @@
     dest: "{{ dotfiles_destination }}/{{ item | regex_replace('^(.*)(.j2)$', '\\1') }}"
     backup: yes
   loop: "{{ dotfiles }}"
+
+- name: Add umask fix for WSL distributions
+  blockinfile:
+    path: ~/.profile
+    block: |
+      # Note: Bash on Windows does not currently apply umask properly.
+      if [[ "$(umask)" = "0000" ]]; then
+        umask 0022
+      fi
+  when: '"Microsoft" in ansible_kernel'

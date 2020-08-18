@@ -9,11 +9,10 @@
     warn: false
 
 - name: Install useful applications and tools, if possible
-  yum:
+  package:
     name:
       - vim
       - ansible-lint
-      - yaml-lint
   become: yes
   when: '"Sorry" not in sudo_permission.stderr'
 

@@ -6,6 +6,7 @@ dotfiles:
   - .vimrc
   - .gitignore
   - .gitconfig.j2
+  - .ansible.cfg
 
 developer_name: "Tim Grützmacher"
 developer_email: "tim.gruetzmacher@computacenter.com"

@@ -1,0 +1,6 @@
+---
+
+- import_tasks: install-tools.yml
+- import_tasks: deploy-dotfiles.yml
+- import_tasks: ssh-key-setup.yml
+

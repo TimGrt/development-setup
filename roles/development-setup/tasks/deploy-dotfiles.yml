@@ -4,7 +4,7 @@
 - name: Roll out dotfiles to {{ dotfiles_destination }}
   template:
     src: "{{ item }}"
-    dest: "{{ dotfiles_destination }}/{{ item | regex_replace('^(.*)(.j2)$', '\\1') }}"
+    dest: "{{ dotfiles_destination }}/.{{ item | regex_replace('^(.*)(.j2)$', '\\1') }}"
     backup: yes
   loop: "{{ dotfiles }}"
 

@@ -12,6 +12,7 @@ set showmatch           " show matching brackets
 set autoindent smartindent  " auto/smart indent
 set smarttab            " better backspace and tab functionality
 set scrolloff=5         " show at least 5 lines above/below
+set t_u7=
 
 " tabs and indenting
 set autoindent          " auto indenting

@@ -15,7 +15,6 @@ set foldenable          " enable Code folding
 set foldlevelstart=10   " heavily nested blocks are folded
 
 " tabs and indenting
-set autoindent          " auto indenting
 set smartindent         " smart indenting
 set smarttab            " better backspace and tab functionality
 set expandtab           " spaces instead of tabs

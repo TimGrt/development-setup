@@ -14,7 +14,7 @@
     name:
       - vim
       - ansible-lint
-      - yaml-lint
+      - yamllint
   become: yes
   when:
     - sudo_permission is defined or '"Sorry" not in sudo_permission.stderr'

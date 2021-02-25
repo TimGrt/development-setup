@@ -1,7 +1,7 @@
 ---
 
 - name: Check for sudo permissions
-  command: sudo -v
+  command: sudo -n -l
   register: sudo_permission
   become: yes
   failed_when: sudo_permission.rc > 1
@@ -17,7 +17,8 @@
       - yamllint
   become: yes
   when:
-    - sudo_permission is defined or '"Sorry" not in sudo_permission.stderr'
+    - sudo_permission.module_stderr is defined
+    - '"sudo: a password is required" not in sudo_permission.module_stderr'
     - ansible_os_family == "RedHat"
 
 - name: Install useful applications and tools for Debian-based systems
@@ -28,5 +29,6 @@
       - yamllint
   become: yes
   when:
-    - sudo_permission is defined or '"Sorry" not in sudo_permission.stderr'
+    - sudo_permission.module_stderr is defined
+    - '"sudo: a password is required" not in sudo_permission.module_stderr'
     - ansible_os_family == "Debian"

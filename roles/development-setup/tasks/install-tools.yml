@@ -3,6 +3,7 @@
 - name: Check for sudo permissions
   command: sudo -v
   register: sudo_permission
+  become: yes
   failed_when: sudo_permission.rc > 1
   changed_when: false
   args:
@@ -16,7 +17,7 @@
       - yaml-lint
   become: yes
   when:
-    - '"Sorry" not in sudo_permission.stderr'
+    - sudo_permission is defined or '"Sorry" not in sudo_permission.stderr'
     - ansible_os_family == "RedHat"
 
 - name: Install useful applications and tools for Debian-based systems
@@ -27,5 +28,5 @@
       - yamllint
   become: yes
   when:
-    - '"Sorry" not in sudo_permission.stderr'
+    - sudo_permission is defined or '"Sorry" not in sudo_permission.stderr'
     - ansible_os_family == "Debian"

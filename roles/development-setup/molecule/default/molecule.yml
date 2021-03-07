@@ -1,52 +1,14 @@
 ---
-dependency:
-  name: galaxy
 driver:
   name: docker
 platforms:
   - name: centos7
-    image: geerlingguy/docker-centos7-ansible
+    image: timgrt/centos7-ansible:latest
     tmpfs:
       - /run
       - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    capabilities:
-      - SYS_ADMIN
-    command: "/lib/systemd/systemd"
-    pre_build_image: true
-  - name: ubuntu1804
-    image: geerlingguy/docker-ubuntu1804-ansible
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    capabilities:
-      - SYS_ADMIN
-    command: "/lib/systemd/systemd"
-    pre_build_image: true
-  - name: debian9
-    image: geerlingguy/docker-debian9-ansible
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    capabilities:
-      - SYS_ADMIN
-    command: "/lib/systemd/systemd"
-    pre_build_image: true
-  - name: debian10
-    image: geerlingguy/docker-debian10-ansible
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    capabilities:
-      - SYS_ADMIN
-    command: "/lib/systemd/systemd"
     pre_build_image: true
 provisioner:
   name: ansible
@@ -54,7 +16,10 @@ provisioner:
     defaults:
       interpreter_python: auto_silent
       callback_whitelist: profile_tasks, timer, yaml
+      stdout_callback: yaml
     ssh_connection:
       pipelining: false
-verifier:
-  name: ansible
+  inventory:
+    host_vars:
+      centos7:
+        ansible_user: ansible

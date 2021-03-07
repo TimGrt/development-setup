@@ -15,10 +15,10 @@
       - vim
       - ansible-lint
       - yamllint
+    state: present
   become: yes
   when:
-    - sudo_permission.module_stderr is defined
-    - '"sudo: a password is required" not in sudo_permission.module_stderr'
+    - sudo_permission.module_stderr is not defined
     - ansible_os_family == "RedHat"
 
 - name: Install useful applications and tools for Debian-based systems
@@ -27,8 +27,8 @@
       - vim
       - ansible-lint
       - yamllint
+    state: present
   become: yes
   when:
-    - sudo_permission.module_stderr is defined
-    - '"sudo: a password is required" not in sudo_permission.module_stderr'
+    - sudo_permission.module_stderr is not defined
     - ansible_os_family == "Debian"

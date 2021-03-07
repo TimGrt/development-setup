@@ -1,12 +1,5 @@
 ---
 - name: Converge
   hosts: all
-<<<<<<< HEAD
-=======
-  #  tasks:
-  #  - name: "Include role development-setup"
-  #    include_role:
-  #      name: "development-setup"
->>>>>>> 3af624bf0b0d9c17bf98b8e2929abcba2e346348
   roles:
     - development-setup

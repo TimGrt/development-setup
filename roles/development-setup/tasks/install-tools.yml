@@ -21,6 +21,7 @@
       - ansible-lint
       - yamllint
     state: present
+    update_cache: yes
   become: yes
   when:
     - sudo_permission.module_stderr is not defined
@@ -33,6 +34,7 @@
       - ansible-lint
       - yamllint
     state: present
+    update_cache: yes
   become: yes
   when:
     - sudo_permission.module_stderr is not defined

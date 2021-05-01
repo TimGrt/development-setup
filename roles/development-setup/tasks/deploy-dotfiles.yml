@@ -2,7 +2,7 @@
 
 # Regular expression removes the .j2 ending of templates
 - name: Roll out dotfiles to {{ dotfiles_destination }}
-  template:
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ dotfiles_destination }}/{{ item | regex_replace('^(.*)(.j2)$', '\\1') }}"
     backup: yes

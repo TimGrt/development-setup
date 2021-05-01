@@ -1,7 +1,7 @@
 ---
 
 - name: Check for sudo permissions
-  command: sudo -n -l
+  ansible.builtin.command: sudo -n -l
   register: sudo_permission
   become: yes
   failed_when: sudo_permission.rc > 1
@@ -9,8 +9,13 @@
   args:
     warn: false
 
+- name: Info
+  ansible.builtin.debug:
+    msg: "You do not have sufficient sudo permissions, installing application won't work!"
+  when: sudo_permission.module_stderr is defined
+
 - name: Install useful applications and tools for RedHat-based systems
-  yum:
+  ansible.builtin.yum:
     name:
       - vim
       - ansible-lint
@@ -22,7 +27,7 @@
     - ansible_os_family == "RedHat"
 
 - name: Install useful applications and tools for Debian-based systems
-  apt:
+  ansible.builtin.apt:
     name:
       - vim
       - ansible-lint

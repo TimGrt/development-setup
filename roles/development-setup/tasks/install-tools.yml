@@ -3,16 +3,22 @@
 - name: Check for sudo permissions
   ansible.builtin.command: sudo -n -l
   register: sudo_permission
-  become: yes
   failed_when: sudo_permission.rc > 1
   changed_when: false
+  check_mode: no
   args:
     warn: false
 
 - name: Info
-  ansible.builtin.debug:
-    msg: "You do not have sufficient sudo permissions, installing application won't work!"
-  when: sudo_permission.module_stderr is defined
+  ansible.builtin.fail:
+    msg:
+      - Installing applications won't work!
+      - You do not have sufficient sudo permissions, a password is required.
+      - Try running the playbook with '-K' (--ask-become-pass) and provide the sudo password.
+      - For skipping the tool installation, run the playbook with '--skip-tags tools'
+  when:
+    - sudo_permission.stderr is defined
+    - '"password is required" in sudo_permission.stderr'
 
 - name: Install useful applications and tools for RedHat-based systems
   ansible.builtin.yum:
@@ -24,7 +30,6 @@
     update_cache: yes
   become: yes
   when:
-    - sudo_permission.module_stderr is not defined
     - ansible_os_family == "RedHat"
 
 - name: Install useful applications and tools for Debian-based systems
@@ -37,5 +42,4 @@
     update_cache: yes
   become: yes
   when:
-    - sudo_permission.module_stderr is not defined
     - ansible_os_family == "Debian"

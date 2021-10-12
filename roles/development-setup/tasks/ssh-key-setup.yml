@@ -1,27 +1,5 @@
 ---
 
-- name: Ensure OpenSSH is installed on RedHat-based systems
-  ansible.builtin.yum:
-    name: 
-      - openssh-server
-      - openssh-clients
-    state: present
-  become: yes
-  when: 
-    - sudo_permission.module_stderr is not defined
-    - ansible_os_family == "RedHat"
-
-- name: Ensure OpenSSH is installed on Debian-based systems
-  ansible.builtin.apt:
-    name: 
-      - openssh-server
-      - openssh-client
-    state: present
-  become: yes
-  when: 
-    - sudo_permission.module_stderr is not defined
-    - ansible_os_family == "Debian"
-
 - name: Create SSH keypair for User {{ ansible_user_id }}
   ansible.builtin.user:
     name: "{{ ansible_user_id }}"
@@ -31,6 +9,6 @@
 
 # As the playbook is meant to run on localhost, it utilizes lookup
 # This will not work on remote hosts and when testing with molecule
-- name: Output local SSH public key, when copying, be careful not to copy the quotation marks
+- name: Output local SSH public key
   ansible.builtin.debug:
     msg: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

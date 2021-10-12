@@ -1,7 +1,6 @@
 ---
 
 - name: Prepare this host for development
-  hosts: localhost
-  connection: local
+  hosts: dev_hosts
   roles:
     - development-setup

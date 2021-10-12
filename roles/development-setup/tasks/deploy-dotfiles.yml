@@ -7,3 +7,11 @@
     dest: "{{ dotfiles_destination }}/{{ item | regex_replace('^(.*)(.j2)$', '\\1') }}"
     backup: yes
   loop: "{{ dotfiles }}"
+
+- name: Disable bell
+  ansible.builtin.blockinfile:
+    path: "{{ dotfiles_destination }}/.bashrc"
+    block: |
+      # Disable bell
+      bind 'set bell-style none'
+    state: present

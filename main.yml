@@ -4,3 +4,4 @@
   hosts: dev_hosts
   roles:
     - development-setup
+    - oh-my-bash

@@ -1,0 +1,30 @@
+---
+
+- name: Clone oh-my-bash repository to {{ install_directory }}
+  ansible.builtin.git:
+    repo: git://github.com/ohmybash/oh-my-bash.git
+    dest: "{{ install_directory }}"
+
+- name: Slurp oh-my-bash bashrc template to variable
+  ansible.builtin.slurp:
+    src: "{{ install_directory }}/templates/bashrc.osh-template"
+  register: bashrc_template
+
+- name: Append oh-my-bash bashrc template to bashrc
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_user_dir }}/.bashrc"
+    backup: true
+    block: "{{ bashrc_template['content'] | b64decode }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - oh-my-bash configuration"
+
+# Naming custom theme same as default theme, no need to adjust template configuration
+
+- name: Create folder for custom theme
+  ansible.builtin.file:
+    path: "{{ install_directory }}/custom/themes/font"
+    state: directory
+
+- name: Deploy custom theme
+  ansible.builtin.copy:
+    src: theme.sh
+    dest: "{{ install_directory }}/custom/themes/font/font.theme.sh"
